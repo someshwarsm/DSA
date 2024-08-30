@@ -1,0 +1,33 @@
+class DisjointSet{
+    int[] sizeArr, parent;
+    DisjointSet(int n){
+        sizeArr = new int[n];
+        parent = new int[n];
+        Arrays.fill(sizeArr, 1);
+        for(int i=0;i<n;i++)
+            parent[i]=i;
+    }
+
+    public int getParent(int node){
+        if(parent[node]==node)
+            return node;
+        return parent[node]=getParent(parent[node]);
+    }
+
+    public void union(int a, int b){
+        int para = getParent(a);
+        int parb = getParent(b);
+
+        if(para == parb)
+            return;
+        
+        if(sizeArr[para]>sizeArr[parb]){
+            parent[parb] = para;
+            sizeArr[para]+=sizeArr[parb];
+        }
+        else{
+            parent[para] = parb;
+            sizeArr[parb]+=sizeArr[para];
+        }
+    }
+}
