@@ -1,0 +1,15 @@
+public static boolean subsetSumToK(int n, int k, int arr[]){
+        boolean[][] dp = new boolean[n][k+1];
+        dp[0][0]=true;
+        if(arr[0]<=k)
+            dp[0][arr[0]]=true;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=k;j++){
+                dp[i][j] = dp[i-1][j];
+                if(j>=arr[i])
+                    dp[i][j] = dp[i][j] || dp[i-1][j-arr[i]];
+            }
+        }
+
+        return dp[n-1][k];
+    }
